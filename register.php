@@ -2,7 +2,43 @@
 require_once 'core/init.php';
 
 if (Input::exists('post')) {
-    echo "Submitted", '<br>';
+    $validate = new Validate();
+    $validation = $validate->check($_POST, array(
+        //these much match the field names in the form i.e. <input name="name">
+        'username' => array(
+            'required' => true,
+            'min' => 2,
+            'max' => 30,
+            'unique' => 'users' //will check if unique to the 'users' table
+        ),
+        'password' => array(
+            'required' => true,
+            'min' => 8,
+            'max' => 30
+        ),
+        're_password' => array(
+            'required' => true,
+            'matches' => 'password' //must match password field
+        ),
+        'first_name' => array(
+            'required' => true,
+            'min' => 2,
+            'max' => 30
+        ),
+        'last_name' => array(
+            'required' => true,
+            'min' => 2,
+            'max' => 30
+        )
+    ));
+
+    if ($validation->passed()) {
+        //register user
+        echo "Submitted successfully", '<br>';
+    } else {
+        //error
+    }
+
 }
 ?>
 
