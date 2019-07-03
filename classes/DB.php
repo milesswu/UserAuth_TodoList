@@ -41,11 +41,12 @@ class DB {
             $x = 1;
             if (count($params)) {
                 foreach($params as $param) {
+                    //echo $x . 'th parameter: ' . $param, '<br>';
                     $this->_query->bindValue($x, $param);
                     $x++;
                 }
             }
-
+            //var_dump($this->_query);
             if ($this->_query->execute()) {
                 $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
                 $this->_count = $this->_query->rowCount();
@@ -106,12 +107,12 @@ class DB {
         foreach($fields as $field) {
             $values .= "?";
             if ($x < count($fields)) {
-                values .= ', ';
+                $values .= ', ';
             }
             $x++;
         }
-        $sql = "INSERT INTO ${table} (`" . implode('`, `', $keys) . "` VALUES({$values}))";
-
+        $sql = "INSERT INTO ${table} (" . implode(', ', $keys) . ") VALUES({$values})";
+        //echo $sql, '<br>';
         if (!$this->query($sql, $fields)->error()) {
             return true;
         }
@@ -132,7 +133,8 @@ class DB {
             $x++;
         }
 
-        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+        $sql = "UPDATE {$table} SET {$set} WHERE user_id = {$id}";
+        //echo $sql, '<br>';
         if (!$this->query($sql, $fields)->error()) {
             return true;
         }
@@ -144,6 +146,9 @@ class DB {
         return $this->action('DELETE', $table, $where);
     }
 
+/******************************************************************************88
+ * HELPER FUNCTIONS
+ */
     public function error() {
         return $this->_error;
     }

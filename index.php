@@ -33,6 +33,20 @@ if (!$user->count()) {
         echo $user->first_name, '<br>';
     }
     */
-    echo $user->first_result()->username;
+    echo $user->first_result()->username, '<br>';
 }
+/*
+ var_dump($userInsert = DB::getInstance()->insert('users', array(
+    'username' => 'rgeil',
+    'password' => 'backend-god',
+    'salt' => 'salt',
+    'first_name' => 'Robert',
+    'last_name' => 'Gle'
+)));
+*/
+
+$userInsert = DB::getInstance()->update('users', 2, array(
+    'last_name' => 'Geil'
+));
+
 ?>
