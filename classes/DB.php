@@ -79,6 +79,14 @@ class DB {
 
     //TODO: Add a where function to handle multiple WHERE conditions for a query
 
+    public function results() {
+        return $this->_results;
+    }
+
+    public function first_result() {
+        return $this->results()[0];
+    }
+
     public function error() {
         return $this->_error;
     }

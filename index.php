@@ -28,5 +28,11 @@ if (!$user->count()) {
     echo nl2br("No user\r\n");
 } else {
     echo nl2br("OK\r\n");
+    /*
+    foreach($user->results() as $user) {
+        echo $user->first_name, '<br>';
+    }
+    */
+    echo $user->first_result()->username;
 }
 ?>
