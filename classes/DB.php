@@ -8,12 +8,14 @@ class DB {
             $_count = 0;        //number of results
 
     //Connects to database on construction
+    //this is private with the intention that instances of DB go through the getInstance function
     private function __construct() {
         try {
             //PDO object takes host and database string, username, password
             $this->$_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';dbname=' . Config::get('mysql/db'),
                 Config::get('mysql/username'),
                 Config::get('mysql/password')); 
+            echo "Connected";
         } catch(PDOException $e) {
             die($e->getMessage());
         }
