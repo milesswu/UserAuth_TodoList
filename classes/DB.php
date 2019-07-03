@@ -30,6 +30,10 @@ class DB {
         return self::$_instance;
     }
     
+/* ************************************************************************
+ * QUERY FUNCTIONS
+ */
+
     //Handle database querying, prevents sql injections
     public function query($sql, $params = array()) {
         $this->_error = false;
@@ -67,24 +71,77 @@ class DB {
                 }
             }
         }
+        return false;
     }
 
     public function get($table, $where) {
         return $this->action('SELECT *', $table, $where);
     }
 
-    public function delete($table, $where) {
-        return $this->action('DELETE', $table, $where);
-    }
-
     //TODO: Add a where function to handle multiple WHERE conditions for a query
 
+/*****************************************************************************
+ * QUERY RESULT HANDLING
+ */
     public function results() {
         return $this->_results;
     }
 
     public function first_result() {
         return $this->results()[0];
+    }
+
+/********************************************************************************
+ * INSERTION, DELETION, AND UPDATING
+ */
+
+    public function insert($table, $fields = array()) {
+        if (!count($fields)) {
+            return false;
+        }
+        $keys = array_keys($fields); //returns keys of the fields array
+        $values = '';
+        $x = 1;
+
+        foreach($fields as $field) {
+            $values .= "?";
+            if ($x < count($fields)) {
+                values .= ', ';
+            }
+            $x++;
+        }
+        $sql = "INSERT INTO ${table} (`" . implode('`, `', $keys) . "` VALUES({$values}))";
+
+        if (!$this->query($sql, $fields)->error()) {
+            return true;
+        }
+        return false;
+    }
+
+    //TODO: Change update function to be more robust
+    public function update($table, $id, $fields = array()) {
+        $set = '';
+        $x = 1;
+
+        //parse fields to be updated
+        foreach($fields as $name => $value) {
+            $set .= "{$name} = ?";
+            if ($x < count($fields)) {
+                $set .= ', ';
+            }
+            $x++;
+        }
+
+        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+        if (!$this->query($sql, $fields)->error()) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public function delete($table, $where) {
+        return $this->action('DELETE', $table, $where);
     }
 
     public function error() {
