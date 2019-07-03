@@ -2,7 +2,7 @@
 require_once 'core/init.php';
 
 //this function will load according to specified host without needing to directly acces the globals array
-var_dump(Config::get('mysql/host')); 
+echo Config::get('mysql/host') . nl2br("\n"); 
 
 DB::getInstance();
 DB::getInstance();
@@ -15,4 +15,40 @@ DB::getInstance();
         }
     }
 */
+
+$user = DB::getInstance();
+$user->query("SELECT username FROM users WHERE username = ?", array('robert'));
+if (!$user->count()) {
+    echo nl2br("No user\r\n");
+} else {
+    echo nl2br("OK\r\n");
+}
+
+$user->get('users', array('username', '=', 'milesswu'));
+
+if (!$user->count()) {
+    echo nl2br("No user\r\n");
+} else {
+    echo nl2br("OK\r\n");
+    /*
+    foreach($user->results() as $user) {
+        echo $user->first_name, '<br>';
+    }
+    */
+    echo $user->first_result()->username, '<br>';
+}
+/*
+ var_dump($userInsert = DB::getInstance()->insert('users', array(
+    'username' => 'rgeil',
+    'password' => 'backend-god',
+    'salt' => 'salt',
+    'first_name' => 'Robert',
+    'last_name' => 'Gle'
+)));
+*/
+
+$userInsert = DB::getInstance()->update('users', 2, array(
+    'last_name' => 'Geil'
+));
+
 ?>
