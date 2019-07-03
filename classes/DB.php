@@ -12,7 +12,7 @@ class DB {
     private function __construct() {
         try {
             //PDO object takes host and database string, username, password
-            $this->$_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';dbname=' . Config::get('mysql/db'),
+            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';dbname=' . Config::get('mysql/db'),
                 Config::get('mysql/username'),
                 Config::get('mysql/password')); 
             echo "Connected";
