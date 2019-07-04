@@ -37,6 +37,21 @@ if (Input::exists('post')) {
 
         if ($validation->passed()) {
             //register user
+            $user = new User();
+            $salt = Hash::salt(32);
+            try {
+                $user->create(array(
+                    'username' => Input::get('username'),
+                    'password' => Hash::make(Input::get('password'), $salt),
+                    'salt' => $salt,
+                    'first_name' => Input::get('first_name'),
+                    'last_name' => Input::get('last_name'),
+                    'join_time' => date('Y-m-d:H:i:s'),
+                    'group_id' => 1
+                ));
+            } catch(Exception $e) {
+                die($e->getMessage());
+            }
             //sets the session to have name 'success' with value 'Registered successfully'
             Session::flash('success', 'Registered successfully!');
             header('Location: index.php');

@@ -5,11 +5,16 @@ if (Session::exists('success')) {
     //prints the value associated with the 'success' session name
     echo Session::flash('success'), '<br>';
 }
+
+if (Session::exists('home')) {
+    echo '<p>' . Session::flash('home') . '<p>';
+}
+
 //this function will load according to specified host without needing to directly acces the globals array
 echo Config::get('mysql/host') . nl2br("\n"); 
 
-DB::getInstance();
-DB::getInstance();
+//DB::getInstance();
+//DB::getInstance();
 //Example of how we might use the DB class to easily access database through instances
 /*
     $users = DB::getInstance()->query('SELECT username FROM users');
@@ -19,7 +24,7 @@ DB::getInstance();
         }
     }
 */
-
+/*
 $user = DB::getInstance();
 $user->query("SELECT username FROM users WHERE username = ?", array('robert'));
 if (!$user->count()) {
@@ -38,7 +43,7 @@ if (!$user->count()) {
     foreach($user->results() as $user) {
         echo $user->first_name, '<br>';
     }
-    */
+    
     echo $user->first_result()->username, '<br>';
 }
 /*
@@ -49,10 +54,10 @@ if (!$user->count()) {
     'first_name' => 'Robert',
     'last_name' => 'Gle'
 )));
-*/
+
 
 $userInsert = DB::getInstance()->update('users', 2, array(
     'last_name' => 'Geil'
 ));
-
+*/
 ?>
