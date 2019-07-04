@@ -15,7 +15,6 @@ class DB {
             $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';dbname=' . Config::get('mysql/db'),
                 Config::get('mysql/username'),
                 Config::get('mysql/password')); 
-            echo nl2br("Connected\r\n");
         } catch(PDOException $e) {
             die($e->getMessage());
         }

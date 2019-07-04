@@ -10,6 +10,7 @@ if (Input::exists('post')) {
             //these much match the field names in the form i.e. <input name="name">
             'username' => array(
                 'required' => true,
+                'type' => 'alphanumeric',
                 'min' => 2,
                 'max' => 30,
                 'unique' => 'users' //will check if unique to the 'users' table
@@ -25,11 +26,13 @@ if (Input::exists('post')) {
             ),
             'first_name' => array(
                 'required' => true,
+                'type' => 'alphabetic',
                 'min' => 2,
                 'max' => 30
             ),
             'last_name' => array(
                 'required' => true,
+                'type' => 'alphabetic',
                 'min' => 2,
                 'max' => 30
             )

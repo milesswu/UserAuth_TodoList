@@ -11,7 +11,25 @@ if (Session::exists('home')) {
 }
 
 //this function will load according to specified host without needing to directly acces the globals array
-echo Config::get('mysql/host') . nl2br("\n"); 
+//echo Config::get('mysql/host') . nl2br("\n"); 
+//echo Session::get(Config::get('session/session_name'));
+
+$user = new User();
+if ($user->isLoggedIn()) {
+    ?>
+    <p>Hello <a href="#"><?php echo escape($user->data()->username); ?></a>!</p>
+    <ul>
+        <li><a href="logout.php">Log out</a></li>
+    </ul>
+<?php
+} else {
+    ?>
+    <a href="login.php">Log in</a><br>
+    <a href="register.php">Register</a>
+<?php
+}
+
+
 
 //DB::getInstance();
 //DB::getInstance();
