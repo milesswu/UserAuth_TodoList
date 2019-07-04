@@ -37,7 +37,9 @@ if (Input::exists('post')) {
         echo "Submitted successfully", '<br>';
     } else {
         //error
-        print_r($validation->errors());
+        foreach($validation->errors() as $error) {
+            echo $error, '<br>';
+        }
     }
 
 }
