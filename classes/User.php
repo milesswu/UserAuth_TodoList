@@ -83,7 +83,18 @@ class User {
         Cookie::delete($this->_cookieName);
     }
 
-    //helper funcitno to find a user in the database
+    public function update($fields = array(), $id = null) {
+
+        if (!$id && $this->isLoggedIn()) {
+            $id = $this->data()->user_id;
+        }
+
+        if (!$this->_db->update('users', $id, $fields)) {
+            throw new Exception("Error updating information");
+        }
+    }
+
+    //helper function to find a user in the database
     public function find($user = null) {
         if ($user) {
             $field = (is_numeric($user)) ? 'user_id' : 'username';
