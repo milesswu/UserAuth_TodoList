@@ -4,6 +4,7 @@ require_once 'core/init.php';
 if (Input::exists('post')) {
     //checks whether the token created by the session matches the token supplied by hidden form
     if (Token::check(Input::get('token'))) {
+        echo "validation begins", '<br>';
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
             //these much match the field names in the form i.e. <input name="name">
@@ -36,7 +37,9 @@ if (Input::exists('post')) {
 
         if ($validation->passed()) {
             //register user
-            echo "Submitted successfully", '<br>';
+            //sets the session to have name 'success' with value 'Registered successfully'
+            Session::flash('success', 'Registered successfully!');
+            header('Location: index.php');
         } else {
             //error
             foreach($validation->errors() as $error) {

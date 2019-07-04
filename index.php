@@ -1,6 +1,10 @@
 <?php
 require_once 'core/init.php';
 
+if (Session::exists('success')) {
+    //prints the value associated with the 'success' session name
+    echo Session::flash('success'), '<br>';
+}
 //this function will load according to specified host without needing to directly acces the globals array
 echo Config::get('mysql/host') . nl2br("\n"); 
 
