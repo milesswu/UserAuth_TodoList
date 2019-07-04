@@ -54,7 +54,7 @@ if (Input::exists('post')) {
             }
             //sets the session to have name 'success' with value 'Registered successfully'
             Session::flash('success', 'Registered successfully!');
-            header('Location: index.php');
+            Redirect::to('index.php');
         } else {
             //error
             foreach($validation->errors() as $error) {
