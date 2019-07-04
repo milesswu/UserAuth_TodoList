@@ -37,6 +37,7 @@ if (Input::exists('post')) {
         echo "Submitted successfully", '<br>';
     } else {
         //error
+        print_r($validation->errors());
     }
 
 }
@@ -45,7 +46,12 @@ if (Input::exists('post')) {
 <form action="" method="POST">
     <div class="field">
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="">
+        <input 
+            type="text" 
+            name="username" 
+            id="username" 
+            value="<?php echo escape(Input::get('username')); ?>"
+        >
     </div>
 
     <div class="field">
@@ -60,9 +66,19 @@ if (Input::exists('post')) {
 
     <div class="field">
         <label for="first_name">First Name</label>
-        <input type="text" name="first_name" id="first_name">
+        <input 
+            type="text" 
+            name="first_name" 
+            id="first_name"
+            value="<?php echo escape(Input::get('first_name')); ?>"    
+        >
         <label for="last_name">Last Name</label>
-        <input type="text" name="last_name" id="last_name">
+        <input 
+            type="text" 
+            name="last_name" 
+            id="last_name"
+            value="<?php echo escape(Input::get('last_name')); ?>"
+        >
         <br>
         <input type="submit" value="Register">
     </div>
