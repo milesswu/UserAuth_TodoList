@@ -17,7 +17,7 @@ if (Session::exists('home')) {
 $user = new User();
 if ($user->isLoggedIn()) {
 ?>
-    <p>Hello <a href="#"><?php echo escape($user->data()->username); ?></a>!</p>
+    <p>Hello <a href="profile.php?user=<?php echo escape($user->data()->username); ?>"><?php echo escape($user->data()->username); ?></a>!</p>
     <ul>
         <li><a href="update.php">Update Info</a></li>
         <li><a href="change_pass.php">Change Password</a></li>
