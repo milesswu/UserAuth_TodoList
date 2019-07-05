@@ -94,6 +94,20 @@ class User {
         }
     }
 
+    public function hasPermission($key) {
+        $group = $this->_db->get('groups', array('group_id', '=', $this->data()->group_id));
+
+        if ($group->count()) {
+            $permissions = json_decode($group->first_result()->permissions, true);
+
+            if($permissions[$key] == true) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     //helper function to find a user in the database
     public function find($user = null) {
         if ($user) {

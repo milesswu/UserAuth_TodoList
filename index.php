@@ -16,16 +16,20 @@ if (Session::exists('home')) {
 
 $user = new User();
 if ($user->isLoggedIn()) {
-    ?>
+?>
     <p>Hello <a href="#"><?php echo escape($user->data()->username); ?></a>!</p>
     <ul>
         <li><a href="update.php">Update Info</a></li>
         <li><a href="change_pass.php">Change Password</a></li>
         <li><a href="logout.php">Log out</a></li>
     </ul>
+
 <?php
+    if ($user->hasPermission('admin')) {
+        echo "You are an admin", '<br>';
+    }
 } else {
-    ?>
+?>
     <a href="login.php">Log in</a><br>
     <a href="register.php">Register</a>
 <?php
